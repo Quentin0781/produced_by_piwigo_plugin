@@ -35,6 +35,15 @@ add_event_handler('init', 'produced_by_init');
  * plugin initialization
  *   - load language
  */
+
+
+$result = pwg_query('SHOW COLUMNS FROM piwigo_images LIKE "produced_by";');
+if (!pwg_db_num_rows($result))
+{
+  pwg_query('ALTER TABLE piwigo_images ADD produced_by VARCHAR(100) DEFAULT "un test";');
+}
+
+
 function produced_by_init()
 {
   if (script_basename() == 'picture')
